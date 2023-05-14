@@ -1,0 +1,43 @@
+#server
+server:
+  port: 10000
+
+#jdbc
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    username: hr
+    password: hr
+
+  #jpa
+  jpa:
+    database-platform: org.hibernate.dialect.OracleDialect
+    hibernate:
+
+      #jpa ddl-auto
+        #create drop 후 create
+        #create-drop - 서버 종료시 all table drop(drop 후 create), DML을 사용하지 않는다면 DROP 되지 않음
+        #update -  update 변경 후 테이블 수정 alter 명령어 나감, 개발시 update
+          #Entity와 DB 스키마 비교 후 수정 사항 반영(컬럼 삭제, 타입 변경은 불가능)
+        #validate entity 수정시 오류 서버 배포시 validate
+          #Entity와 DB 스키마 비교(다르면 예외 발생)
+      ddl-auto: update
+
+
+
+    #jpa format
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+
+  #log
+  output:
+    ansi:
+      enabled: always
+
+  logging.level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
